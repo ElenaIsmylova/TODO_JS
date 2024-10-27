@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="./index.css">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="container">
+    <h1 id="title" class="title">TODO LIST</h1>
+
+    <div class="search-input-wrapper">
+      <input id="search-input" class="input search-input" placeholder="Search note...">
+      <select id="select-todos" name="todos" class="select-todos">
+        <option value="all">ALL</option>
+        <option value="completed">COMPLETED</option>
+        <option value="uncompleted">UNCOMPLETED</option>
+      </select>
+      <button id="theme-btn" class="theme-btn"></button>
+    </div>
+
+    <ul id="todos-list" class="todos-list  todos-list-empty"></ul>
+
+    <div id="add-todo-btn" class="add-todo-btn"></div>
+  </div>
+  <script src="index.js" type="module"></script>
+</body>
+</html>
