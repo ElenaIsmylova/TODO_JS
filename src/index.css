@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-:root {
+.light-theme {
   --background-color: #F7F7F7;
   --color: #252525;
   --input-border: #6C63FF;

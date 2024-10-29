@@ -1,5 +1,5 @@
 
-export const addTodoWindow = (addTodo) => {
+export const addTodoModal = (addTodo) => {
   const body = document.body;
   const modalWindowContainer = document.createElement('div');
   modalWindowContainer.classList.add('modal-window-container');
@@ -37,7 +37,7 @@ export const addTodoWindow = (addTodo) => {
 
   // Добавляем туду  нажатием кнопки 'enter'
   modalWindow.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && input.value.length > 0) {
+    if (e.key === 'Enter' && input.value.length >= 3) {
       const todo = {text: input.value, complete: false};
       addTodo(todo);
       modalWindowContainer.remove();
@@ -46,7 +46,7 @@ export const addTodoWindow = (addTodo) => {
 
   // Добавляем туду при клике на кнопку 'apply'
   applyBtn.addEventListener('click', () => {
-    if(input.value.length > 0) {
+    if(input.value.length >= 3) {
       const todo = {text: input.value, complete: false};
       addTodo(todo);
       modalWindowContainer.remove();

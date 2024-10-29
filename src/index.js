@@ -1,4 +1,4 @@
-import { addTodoWindow } from "./scripts/addTodoWindow";
+import { addTodoModal } from "./scripts/addTodoModal";
 import { createTodo } from "./scripts/createTodo";
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -8,18 +8,40 @@ document.addEventListener('DOMContentLoaded', function() {
   const themeBtn = document.getElementById('theme-btn');
   const addTodoBtn = document.getElementById('add-todo-btn');
 
-  let storedTheme = localStorage.getItem('theme');
-  let theme = storedTheme === null ? true : JSON.parse(storedTheme);
-  theme ? body.classList.remove('dark-theme') : body.classList.add('dark-theme');
+  const THEME_CLASS_MAP = {
+    LIGHT: 'light-theme',
+    DARK: 'dark-theme',
+  }
+
+  const THEME_LOCAL_STORAGE_KEY = localStorage.getItem('theme');
+  let theme = THEME_LOCAL_STORAGE_KEY === null ? true : JSON.parse(THEME_LOCAL_STORAGE_KEY);
+
+  if(theme) {
+    body.classList.remove(THEME_CLASS_MAP.DARK);
+    body.classList.add(THEME_CLASS_MAP.LIGHT);
+  } else {
+    body.classList.add(THEME_CLASS_MAP.DARK);
+    body.classList.remove(THEME_CLASS_MAP.LIGHT);
+  }
   themeBtn.addEventListener('click', () => {
     theme = !theme;
-    body.classList.toggle('dark-theme');
+    body.classList.toggle(THEME_CLASS_MAP.DARK);
+    body.classList.toggle(THEME_CLASS_MAP.LIGHT);
     localStorage.setItem('theme', JSON.stringify(theme));
   });
 
   const todos = JSON.parse(localStorage.getItem('todos')) || [];
   function addTodo(todo) {
     todos.push(todo);
+    saveTodos();
+    renderTodos();
+  }
+
+  function completeTodo(i, complete) {
+    todos[i] = {
+      ...todos[i],
+      complete
+    }
     saveTodos();
     renderTodos();
   }
@@ -39,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     todosList.innerHTML = '';
 
     todos.forEach((todos, index) => {
-      const todoItem = createTodo(todos, index, removeTodo);
+      const todoItem = createTodo(todos, index, completeTodo, removeTodo);
       todosList.appendChild(todoItem);
     });
     todos.length > 0 
@@ -48,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   addTodoBtn.addEventListener('click', () => {
-    addTodoWindow(addTodo);
+    addTodoModal(addTodo);
   })
 
   renderTodos();
