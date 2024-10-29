@@ -46,6 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
     renderTodos();
   }
 
+  function editTodo(i, newText) {
+    todos[i] = {
+      ...todos[i],
+      text: newText
+    }
+    saveTodos();
+    renderTodos();
+  }
+
   function removeTodo(index) {
     todos.splice(index, 1);
     saveTodos();
@@ -61,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     todosList.innerHTML = '';
 
     todos.forEach((todos, index) => {
-      const todoItem = createTodo(todos, index, completeTodo, removeTodo);
+      const todoItem = createTodo(todos, index, completeTodo, editTodo, removeTodo);
       todosList.appendChild(todoItem);
     });
     todos.length > 0 

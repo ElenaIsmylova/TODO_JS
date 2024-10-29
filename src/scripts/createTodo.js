@@ -1,5 +1,6 @@
+import { editTodoModal } from "./editTodoModal";
 
-export const createTodo = (todo, index, completeTodo, removeTodo) => {
+export const createTodo = (todo, index, completeTodo, editTodo, removeTodo) => {
 
   const todoWrapper = document.createElement('li');
   todoWrapper.classList.add('todo-wrapper');
@@ -37,6 +38,10 @@ export const createTodo = (todo, index, completeTodo, removeTodo) => {
   checkbox.addEventListener('change', (e) => {
     const complete = e.target.checked;
     completeTodo(index, complete);
+  })
+
+  editBtn.addEventListener('click', () => {
+    editTodoModal(todo, index, editTodo);
   })
 
   deleteBtn.addEventListener('click', () => {
