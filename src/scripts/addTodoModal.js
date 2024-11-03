@@ -1,3 +1,4 @@
+import { infoModal } from "./infoModal";
 
 export const addTodoModal = (addTodo) => {
   const body = document.body;
@@ -34,13 +35,20 @@ export const addTodoModal = (addTodo) => {
   modalWindow.appendChild(modalWindowBtnsWrapper);
 
   body.appendChild(modalWindowContainer);
+  input.focus();
+
+  let infoModalOpened = {isOpen: false};
 
   // Добавляем туду  нажатием кнопки 'enter'
-  modalWindow.addEventListener('keydown', (e) => {
+  body.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && input.value.length >= 3) {
       const todo = {text: input.value, complete: false};
       addTodo(todo);
       modalWindowContainer.remove();
+      infoModalOpened.isOpen = false;
+    } else if (e.key === 'Enter' && input.value.length < 3 && !infoModalOpened.isOpen) {
+      infoModalOpened.isOpen = true;
+      infoModal(infoModalOpened);
     }
   })
 
@@ -50,6 +58,10 @@ export const addTodoModal = (addTodo) => {
       const todo = {text: input.value, complete: false};
       addTodo(todo);
       modalWindowContainer.remove();
+      infoModalOpened.isOpen = false;
+    } else if (input.value.length < 3 && !infoModalOpened.isOpen) {
+      infoModalOpened.isOpen = true;
+      infoModal(infoModalOpened);
     }
   });
 

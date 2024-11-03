@@ -1,3 +1,4 @@
+import { infoModal } from "./infoModal";
 
 export const editTodoModal = (todo, index, editTodo) => {
   const body = document.body;
@@ -34,20 +35,31 @@ export const editTodoModal = (todo, index, editTodo) => {
   modalWindow.appendChild(modalWindowBtnsWrapper);
 
   body.appendChild(modalWindowContainer);
+  input.focus();
+
+  let infoModalOpened = {isOpen: false};
 
   // Редактируем туду при клике на кнопку 'edit'
   applyBtn.addEventListener('click', () => {
     if(input.value.length >= 3 && input.value !== todo.text) {
       editTodo(index, input.value);
       modalWindowContainer.remove();
+      infoModalOpened.isOpen = false;
+    } else if (input.value.length < 3 && !infoModalOpened.isOpen) {
+      infoModalOpened.isOpen = true;
+      infoModal(infoModalOpened);
     }
   });
 
   // Редактируем туду  нажатием кнопки 'enter'
-  modalWindow.addEventListener('keydown', (e) => {
+  body.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && input.value.length >= 3 && input.value !== todo.text) {
       editTodo(index, input.value);
       modalWindowContainer.remove();
+      infoModalOpened.isOpen = false;
+    } else if (e.key === 'Enter' && input.value.length < 3 && !infoModalOpened.isOpen) {
+      infoModalOpened.isOpen = true;
+      infoModal(infoModalOpened);
     }
   })
 
