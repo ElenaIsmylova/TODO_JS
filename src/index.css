@@ -27,12 +27,46 @@
 html, body {
   font-family: Arial, Helvetica, sans-serif;
   height: 100%;
+  margin: 0;
   background-color: var(--background-color);
+}
+
+.app-wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.left-panel {
+  min-width: 250px;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.right-panel {
+  min-width: 250px;
+  flex-grow: 1;
+  height: 100%;
+  padding-top: 95px;
+}
+
+.clock-wrapper {
+  width: 150px;
+  height: 60px;
+  background-color: #6C63FF;
+  color: #fff;
+  border-radius: 10px;
+  margin: 0 auto;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
 .container {
   width: 750px;
-  height: 100%;
+  min-height: 100%;
   position: relative;
   padding-top: 40px;
   padding-bottom: 80px;
@@ -99,6 +133,37 @@ html, body {
   background-image: var(--theme-btn-background-image);
   transition: 0.2s;
   cursor: pointer;
+}
+
+.toggle {
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 30px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle.active {
+  background-color: #6C63FF;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background-color: white;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.toggle.active::after {
+  transform: translateX(30px);
 }
 
 .todos-list {
@@ -232,7 +297,7 @@ html, body {
   background-image: url('./assets/icons/deleteIconHover.svg');
 }
 
-.modal-window-container {
+.modal-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -249,7 +314,7 @@ html, body {
   z-index: 10;
 }
 
-.modal-window {
+.modal {
   width: 500px;
   height: 290px;
   padding: 30px;

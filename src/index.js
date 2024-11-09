@@ -1,11 +1,14 @@
 import { addTodoModal } from "./scripts/addTodoModal";
 import { createTodo } from "./scripts/createTodo";
+import { deleteTodosInfoModal } from "./scripts/deleteTodosInfoModal";
+import { getTime } from "./scripts/getTime";
 
 document.addEventListener('DOMContentLoaded', function() {
   
   const body = document.body;
   const inputSearch = document.getElementById('search-input');
   const themeBtn = document.getElementById('theme-btn');
+  const toggle = document.getElementById('toggle');
   const addTodoBtn = document.getElementById('add-todo-btn');
 
   const THEME_CLASS_MAP = {
@@ -36,6 +39,20 @@ document.addEventListener('DOMContentLoaded', function() {
     saveTodos();
     renderTodos();
   }
+
+  getTime();
+
+  toggle.addEventListener('click', function() {
+    toggle.classList.toggle('active');
+
+    if (toggle.classList.contains('active')) {
+      if(todos.length > 0) {
+        deleteTodosInfoModal(toggle, todos, saveTodos, renderTodos)
+      } else {
+        addTodoModal(addTodo, toggle);
+      }
+    }
+  });
 
   function completeTodo(i, complete) {
     todos[i] = {
