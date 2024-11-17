@@ -1,6 +1,4 @@
-
-
-export const getTime = () => {
+export const processSetCurrentTime = () => {
   const hour = document.getElementById('hour');
   const minutes = document.getElementById('minutes');
   const sec = document.getElementById('sec');

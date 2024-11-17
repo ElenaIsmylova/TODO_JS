@@ -42,7 +42,7 @@ export const addTodoModal = (addTodo) => {
   // Добавляем туду  нажатием кнопки 'enter'
   modalContainer.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && input.value.length >= 3) {
-      const todo = {text: input.value, complete: false};
+      const todo = {text: input.value, complete: false, id: new Date()};
       addTodo(todo);
       modalContainer.remove();
       infoModalOpened.isOpen = false;

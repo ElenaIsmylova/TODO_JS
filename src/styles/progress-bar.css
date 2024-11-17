@@ -1,0 +1,88 @@
+.undo-todos-wrapper {
+  position: absolute;
+  right: 0;
+  top: 180px;
+  width: 200px;
+  height:400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.undo-modal {
+  width: 135px;
+  height: 70px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 7px;
+  background-color: #6C63FF;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.undo-modal-text-content {
+  text-align: center;
+}
+
+.undo-modal-btn-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.undo-modal-btn {
+  border: 1px solid #fff;
+  border-radius: 3px;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.undo-modal-btn:hover {
+  color: red;
+  border: 1px solid red;
+}
+
+.progress-container {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  margin-right: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer {
+  position: absolute;
+  padding-top: 2px;
+  color: red;
+}
+
+.progress-circle {
+  transform: rotate(-90deg);
+}
+
+.bg {
+  fill: none;
+  stroke: #e0e0e0;
+  stroke-width: 3;
+}
+
+.progress {
+  fill: none;
+  stroke: red;
+  stroke-width: 3;
+  stroke-dasharray: 62.8319;
+  stroke-dashoffset: 62.8319;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.display-none {
+  display: none;
+}
