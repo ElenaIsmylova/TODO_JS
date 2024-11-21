@@ -12,18 +12,20 @@
 
   <div class="app-wrapper">
     <div class="left-panel" id="left-panel">
-      <div>
-        <div><b>Текущие дела:</b></div>
-        <ul id="current-todos-list"></ul>
-      </div>
-      <div>
-        <div><b>Удаленные дела:</b></div>
-        <ul id="removed-todos-list"></ul>
-      </div>
-      <div>
+      <div class="left-panel-border hidden">
         <div>
-          <b>Общее количество дел:</b>
-          <b id="all-todos-amount"></b>
+          <div><b>Текущие дела:</b></div>
+          <ul id="current-todos-list"></ul>
+        </div>
+        <div>
+          <div><b>Удаленные дела:</b></div>
+          <ul id="removed-todos-list"></ul>
+        </div>
+        <div>
+          <div>
+            <b>Общее количество дел:</b>
+            <b id="all-todos-amount"></b>
+          </div>
         </div>
       </div>
     </div>
@@ -33,6 +35,7 @@
   
       <div class="search-input-wrapper">
         <input id="search-input" class="input search-input" placeholder="Search note...">
+        <span class="search-btn"></span>
         <select id="select-todos" name="todos" class="select-todos">
           <option value="all">ALL</option>
           <option value="completed">COMPLETED</option>

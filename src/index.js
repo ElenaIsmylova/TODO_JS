@@ -7,15 +7,20 @@ import { undoDeleteTodoModal } from "./scripts/undoDeleteTodoModal";
 document.addEventListener('DOMContentLoaded', function() {
 
   const body = document.body;
+  const leftPanelBlock = document.getElementsByClassName('left-panel-border');
   const currentTodosList = document.getElementById('current-todos-list');
   const removedTodosList = document.getElementById('removed-todos-list');
   const allTodosAmount = document.getElementById('all-todos-amount');
   const inputSearch = document.getElementById('search-input');
+  const searchBtn = document.getElementsByClassName('search-btn');
   const selectTodos = document.getElementById('select-todos');
   const themeBtn = document.getElementById('theme-btn');
   const toggle = document.getElementById('toggle');
   const addTodoBtn = document.getElementById('add-todo-btn');
 
+  let inputValue = '';
+
+  leftPanelBlock[0].classList.add('show');
   processSetCurrentTime();
 
   const THEME_CLASS_MAP = {
@@ -34,6 +39,23 @@ document.addEventListener('DOMContentLoaded', function() {
     body.classList.remove(THEME_CLASS_MAP.LIGHT);
   };
 
+  inputSearch.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      renderTodos();
+    }
+  })
+
+  inputSearch.addEventListener('input', (e) => {
+    inputValue = e.target.value.toLowerCase();
+    if (inputValue.length === 0) {
+      renderTodos();
+    }
+  })
+
+  searchBtn[0].addEventListener('click', (e) => {
+    renderTodos();
+  })
+
   themeBtn.addEventListener('click', () => {
     theme = !theme;
     body.classList.toggle(THEME_CLASS_MAP.DARK);
@@ -49,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let filteredTodos = [...todos];
 
   const getLiTodos = (arr) => {
+    if(arr.length === 0) return '-';
     let items = '';
     arr.map(todo => items += `<li>${todo.text}</li>`);
     return items;
@@ -128,8 +151,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const todosList = document.getElementById('todos-list');
     todosList.innerHTML = '';
 
-    filteredTodos.forEach((todo, index) => {
-      const todoItem = createTodo(todo, index, completeTodo, editTodo, removeTodo);
+    filteredTodos.filter(todo => todo.text.toLowerCase().includes(inputValue)).forEach((todo, index) => {
+      const todoItem = createTodo(filteredTodos.length, todo, index, completeTodo, editTodo, removeTodo);
       todosList.appendChild(todoItem);
     });
     filteredTodos.length > 0 

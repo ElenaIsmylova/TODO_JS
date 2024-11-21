@@ -1,8 +1,14 @@
 import { editTodoModal } from "./editTodoModal";
 
-export const createTodo = (todo, index, completeTodo, editTodo, removeTodo) => {
+export const createTodo = (len, todo, index, completeTodo, editTodo, removeTodo) => {
 
   const todoWrapper = document.createElement('li');
+  if (len === 1) {
+    todoWrapper.classList.add('hidden');
+    setTimeout(() => {
+      todoWrapper.classList.add('show');
+  }, 500)
+  }
   todoWrapper.classList.add('todo-wrapper');
 
   const checkboxWrapper = document.createElement('label'); 
