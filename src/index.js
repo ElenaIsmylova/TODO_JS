@@ -8,20 +8,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const body = document.body;
   const leftPanelBlock = document.getElementsByClassName('left-panel-border');
-  const currentTodosList = document.getElementById('current-todos-list');
-  const removedTodosList = document.getElementById('removed-todos-list');
-  const allTodosAmount = document.getElementById('all-todos-amount');
+  const currentTodos = document.getElementById('current-todos');
+  const activeTodos = document.getElementById('active-todos');
+  const completeTodos = document.getElementById('complete-todos');
   const inputSearch = document.getElementById('search-input');
   const searchBtn = document.getElementsByClassName('search-btn');
   const selectTodos = document.getElementById('select-todos');
   const themeBtn = document.getElementById('theme-btn');
   const toggle = document.getElementById('toggle');
   const addTodoBtn = document.getElementById('add-todo-btn');
-
-  let inputValue = '';
-
-  leftPanelBlock[0].classList.add('show');
+  
   processSetCurrentTime();
+  let inputValue = '';
 
   const THEME_CLASS_MAP = {
     LIGHT: 'light-theme',
@@ -64,21 +62,16 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   const todos = JSON.parse(localStorage.getItem('todos')) || [];
-  const removedTodos = JSON.parse(localStorage.getItem('removedTodos')) || [];
-  allTodosAmount.textContent = `${todos.length + removedTodos.length}`;
+  currentTodos.innerHTML = todos.length;
+  activeTodos.innerHTML = todos.filter(todo => !todo.complete).length;
+  completeTodos.innerHTML = todos.filter(todo => todo.complete).length;
+
+  if (todos.length > 0) {
+    leftPanelBlock[0].classList.add('show');
+  } 
 
   let SELECT_TODOS_VALUE = 'all';
   let filteredTodos = [...todos];
-
-  const getLiTodos = (arr) => {
-    if(arr.length === 0) return '-';
-    let items = '';
-    arr.map(todo => items += `<li>${todo.text}</li>`);
-    return items;
-  };
-
-  currentTodosList.innerHTML = getLiTodos(todos);
-  removedTodosList.innerHTML = getLiTodos(removedTodos);
 
   function addTodo(todo) {
     todos.push(todo);
@@ -97,15 +90,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   toggle.addEventListener('click', function() {
-    toggle.classList.toggle('active');
-
-    if (toggle.classList.contains('active')) {
-      if(todos.length > 0) {
-        deleteTodosInfoModal(toggle, todos, saveTodos, renderTodos)
-      } else {
-        addTodoModal(addTodo, toggle);
-      };
-    };
+    if (todos.length === 0) {
+      addTodoModal(addTodo, toggle);
+    } else {
+      toggle.classList.add('active');
+      deleteTodosInfoModal(toggle, todos, saveTodos, renderTodos);
+    }
   });
 
   function completeTodo(i, complete) {
@@ -115,6 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     saveTodos();
     renderTodos();
+    activeTodos.innerHTML = todos.filter(todo => !todo.complete).length;
+    completeTodos.innerHTML = todos.filter(todo => todo.complete).length;
   };
 
   function editTodo(i, newText) {
@@ -127,24 +119,24 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   function removeTodo(index) {
-    const removedTodo = todos.splice(index, 1);
-    removedTodos.push(removedTodo[0]);
-    const i = removedTodos.length-1;
-
-    localStorage.setItem('removedTodos', JSON.stringify(removedTodos));
-    removedTodosList.innerHTML = getLiTodos(removedTodos);
-
+    const removedTodo = todos.splice(index, 1)[0];
     saveTodos();
     renderTodos();
-    undoDeleteTodoModal(removedTodo[0], todos, saveTodos, renderTodos, removedTodosList, removedTodos, getLiTodos);
+    undoDeleteTodoModal(removedTodo, todos, saveTodos, renderTodos);
   };
 
   function saveTodos() {
     localStorage.setItem('todos', JSON.stringify(todos));
-    currentTodosList.innerHTML = getLiTodos(todos);
+
+    currentTodos.innerHTML = todos.length;
+    activeTodos.innerHTML = todos.filter(todo => !todo.complete).length;
+    completeTodos.innerHTML = todos.filter(todo => todo.complete).length;
+
     if (SELECT_TODOS_VALUE === 'all') filteredTodos = [...todos];
     if (SELECT_TODOS_VALUE === 'completed') filteredTodos = todos.filter(todo => todo.complete);
     if (SELECT_TODOS_VALUE === 'uncompleted') filteredTodos = todos.filter(todo => !todo.complete);
+
+    leftPanelBlock[0].classList.add('show');
   };
 
   function renderTodos() {
@@ -158,8 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
     filteredTodos.length > 0 
       ? todosList.classList.remove('todos-list-empty') 
       : todosList.classList.add('todos-list-empty');
-
-    allTodosAmount.textContent = `${todos.length + removedTodos.length}`;
   };
   
   addTodoBtn.addEventListener('click', () => {

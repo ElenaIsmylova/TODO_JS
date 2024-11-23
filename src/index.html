@@ -13,18 +13,18 @@
   <div class="app-wrapper">
     <div class="left-panel" id="left-panel">
       <div class="left-panel-border hidden">
-        <div>
-          <div><b>Текущие дела:</b></div>
-          <ul id="current-todos-list"></ul>
+        <div class="side-bar-item">
+          <span>Общее количество задач:</span>
+          <span id="current-todos"></span>
+        </div>
+        <div class="side-bar-item">
+          <span>Активные задачи:</span>
+          <span id="active-todos"></span>
         </div>
         <div>
-          <div><b>Удаленные дела:</b></div>
-          <ul id="removed-todos-list"></ul>
-        </div>
-        <div>
-          <div>
-            <b>Общее количество дел:</b>
-            <b id="all-todos-amount"></b>
+          <div class="side-bar-item">
+            <span>Выполненые задачи (текущие):</span>
+            <span id="complete-todos"></span>
           </div>
         </div>
       </div>
@@ -42,9 +42,8 @@
           <option value="uncompleted">UNCOMPLETED</option>
         </select>
         <button id="theme-btn" class="theme-btn"></button>
+        <div class="toggle" id="toggle"></div>
       </div>
-  
-      <div class="toggle" id="toggle"></div>
   
       <ul id="todos-list" class="todos-list  todos-list-empty"></ul>
   

@@ -3,9 +3,6 @@ export const undoDeleteTodoModal = (
   todos, 
   saveTodos, 
   renderTodos, 
-  removedTodosList, 
-  removedTodos, 
-  getLiTodos
 ) => {
   const undoTodosWrapper = document.getElementById('undo-todos-wrapper');
   const undoModal = document.getElementById('undo-modal');
@@ -45,10 +42,6 @@ export const undoDeleteTodoModal = (
 
   yesBtn.addEventListener('click', () => {
     todos.push(removedTodo);
-    const index = removedTodos.findIndex(todo => todo.id === removedTodo.id);
-    removedTodos.splice(index, 1);
-    localStorage.setItem('removedTodos', JSON.stringify(removedTodos));
-    removedTodosList.innerHTML = getLiTodos(removedTodos);
     saveTodos();
     renderTodos();
     clonedUndoModal.remove();
