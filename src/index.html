@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./styles/progress-bar.css">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <div class="left-panel" id="left-panel">
+      <div class="left-panel-border hidden">
+        <div class="side-bar-item">
+          <span>Общее количество задач:</span>
+          <span id="current-todos"></span>
+        </div>
+        <div class="side-bar-item">
+          <span>Активные задачи:</span>
+          <span id="active-todos"></span>
+        </div>
+        <div>
+          <div class="side-bar-item">
+            <span>Выполненые задачи (текущие):</span>
+            <span id="complete-todos"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1 id="title" class="title">TODO LIST</h1>
+  
+      <div class="search-input-wrapper">
+        <input id="search-input" class="input search-input" placeholder="Search note...">
+        <span class="search-btn"></span>
+        <select id="select-todos" name="todos" class="select-todos">
+          <option value="all">ALL</option>
+          <option value="completed">COMPLETED</option>
+          <option value="uncompleted">UNCOMPLETED</option>
+        </select>
+        <button id="theme-btn" class="theme-btn"></button>
+        <div class="toggle" id="toggle"></div>
+      </div>
+  
+      <ul id="todos-list" class="todos-list  todos-list-empty"></ul>
+  
+      <div id="add-todo-btn" class="add-todo-btn"></div>
+    </div>
+
+    <div class="right-panel" id="right-panel">
+      <div class="clock-wrapper">
+        <span id="hour">--</span>
+        <span>:</span>
+        <span id="minutes">--</span>
+        <span>:</span>
+        <span id="sec">--</span>
+      </div>
+
+      <div id="undo-todos-wrapper" class="undo-todos-wrapper">
+        <div id="undo-modal" class="undo-modal display-none">
+          <div class="undo-modal-text-content">Отменить удаление?</div>
+          <div class="undo-modal-btn-wrapper">
+            <div class="progress-container">
+              <div class="timer">5</div>
+              <svg class="progress-circle" width="25" height="25">
+                <circle class="bg" cx="12.5" cy="12.5" r="10" />
+                <circle class="progress" cx="12.5" cy="12.5" r="10" />
+              </svg>
+            </div>
+            <button class="undo-modal-btn yes">Да</button>
+            <button class="undo-modal-btn no">Нет</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="index.js" type="module"></script>
+</body>
+</html>
